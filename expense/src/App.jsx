@@ -1386,72 +1386,9 @@ export default function App() {
 
   const [transactions, setTransactions] = useState(() => {
     const saved = localStorage.getItem("pocketwallet_transactions_v15");
-    const today = new Date();
-    const currentPrefix = `${today.getFullYear()}-${String(
-      today.getMonth() + 1
-    ).padStart(2, "0")}`;
-    const lastMonthPrefix = `${today.getFullYear()}-${String(
-      today.getMonth()
-    ).padStart(2, "0")}`;
     if (saved) return JSON.parse(saved);
-    return [
-      {
-        id: 1,
-        text: "Salary",
-        amount: 85000,
-        type: "income",
-        category: "Salary",
-        date: `${currentPrefix}-01`,
-      },
-      {
-        id: 2,
-        text: "Groceries",
-        amount: 4500,
-        type: "expense",
-        category: "Food",
-        date: `${currentPrefix}-05`,
-      },
-      {
-        id: 3,
-        text: "Electricity",
-        amount: 1200,
-        type: "expense",
-        category: "Bills",
-        date: `${currentPrefix}-10`,
-      },
-      {
-        id: 4,
-        text: "Uber",
-        amount: 350,
-        type: "expense",
-        category: "Transport",
-        date: `${currentPrefix}-12`,
-      },
-      {
-        id: 5,
-        text: "Rent",
-        amount: 15000,
-        type: "expense",
-        category: "Rent",
-        date: `${currentPrefix}-02`,
-      },
-      {
-        id: 6,
-        text: "Last Month Food",
-        amount: 6000,
-        type: "expense",
-        category: "Food",
-        date: `${lastMonthPrefix}-15`,
-      },
-      {
-        id: 7,
-        text: "Last Month Salary",
-        amount: 85000,
-        type: "income",
-        category: "Salary",
-        date: `${lastMonthPrefix}-01`,
-      },
-    ];
+    // Start with an empty transaction list by default.
+    return [];
   });
 
   const [customCategories, setCustomCategories] = useState(() => {
