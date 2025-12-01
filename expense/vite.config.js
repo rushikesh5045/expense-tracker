@@ -6,9 +6,9 @@ export default defineConfig({
   server: {
     proxy: {
       // For any request starting with /api,
-      // forward to http://localhost:5004
+      // forward to http://localhost:5004 or  https://expense-tracker-backend-n33e.onrender.com
       "/api": {
-        target: "http://localhost:5004",
+        target: "https://expense-tracker-backend-n33e.onrender.com",
         changeOrigin: true,
         secure: false,
       },
