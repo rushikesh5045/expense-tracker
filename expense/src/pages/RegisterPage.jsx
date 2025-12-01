@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
+import { BASE_URL } from "../constants/config.jsx";
 
 export default function RegisterPage() {
   const { hasUsers, setHasUsers } = useContext(AuthContext);
@@ -16,7 +17,7 @@ export default function RegisterPage() {
   const handleRegister = async () => {
     try {
       setLoading(true); // disable button
-      await axios.post("/api/auth/register", form);
+      await axios.post(`${BASE_URL}/api/auth/register`, form);
       // If we reach here, registration was successful:
       setHasUsers(true);
       navigate("/login");

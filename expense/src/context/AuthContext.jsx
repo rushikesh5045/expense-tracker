@@ -1,6 +1,7 @@
 // src/context/AuthContext.js
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { BASE_URL } from "../constants/config.jsx";
 
 export const AuthContext = createContext();
 
@@ -11,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // On first load, check if any user exists in the DB:
     axios
-      .get("/api/auth/exists")
+      .get(`${BASE_URL}/api/auth/exists`)
       .then((res) => {
         setHasUsers(res.data.hasUsers); // true/false
       })

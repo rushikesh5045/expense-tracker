@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { BASE_URL } from "../constants/config.jsx";
 
 export default function LoginPage() {
   const { login } = useContext(AuthContext);
@@ -16,7 +17,7 @@ export default function LoginPage() {
   const handleLogin = async () => {
     try {
       setLoading(true);
-      const res = await axios.post("/api/auth/login", form);
+      const res = await axios.post(`${BASE_URL}/api/auth/login`, form);
       const { token } = res.data;
       login(token);
       navigate("/dashboard");

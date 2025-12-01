@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 
 import { TRANSLATIONS, LOCALE_MAP } from "../constants/translations.jsx";
+import { BASE_URL } from "../constants/config.jsx";
 import { formatCurrency, formatFullDate } from "../helpers/format.jsx";
 import { getCategoryIcon } from "../helpers/icons.jsx";
 
@@ -77,7 +78,7 @@ export default function Dashboard() {
 
   const fetchTransactions = async () => {
     try {
-      const res = await axios.get("/api/expenses");
+      const res = await axios.get(`${BASE_URL}/api/expenses`);
       // Each expense: { _id, userId, amount, description, categoryId, date, type, ... }
       // Map to your local shape: { id, text, amount, type, categoryId, date }
       const mapped = res.data.map((item) => ({
@@ -97,7 +98,7 @@ export default function Dashboard() {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get("/api/categories");
+      const res = await axios.get(`${BASE_URL}/api/categories`);
       // Each category: { _id, userId, name, icon, color, isDefault, ... }
       setCategories(res.data);
     } catch (err) {
@@ -173,7 +174,7 @@ export default function Dashboard() {
     // or you might want to handle that differently. For demonstration:
     if (!chosenCategory) {
       // Possibly create a new category or fallback:
-      const newCatRes = await axios.post("/api/categories", {
+      const newCatRes = await axios.post(`${BASE_URL}/api/categories`, {
         name: formData.category,
         // no 'type', icon, or color unless you want them
       });
@@ -193,7 +194,7 @@ export default function Dashboard() {
     try {
       if (editId) {
         // Update
-        const url = `/api/expenses/${editId}`;
+        const url = `${BASE_URL}/api/expenses/${editId}`;
         const res = await axios.put(url, payload);
         // Let's merge the updated doc in local state
         setTransactions((prev) =>
@@ -212,7 +213,7 @@ export default function Dashboard() {
         );
       } else {
         // Create
-        const res = await axios.post("/api/expenses", payload);
+        const res = await axios.post(`${BASE_URL}/api/expenses`, payload);
         // Insert into local state
         setTransactions((prev) => [
           {
@@ -237,7 +238,7 @@ export default function Dashboard() {
   const handleAddCategory = async () => {
     if (!newCategoryName.trim()) return;
     try {
-      const catRes = await axios.post("/api/categories", {
+      const catRes = await axios.post(`${BASE_URL}/api/categories`, {
         name: newCategoryName.trim(),
         // icon, color as desired
       });
@@ -255,7 +256,7 @@ export default function Dashboard() {
   // Delete transaction
   const deleteTransaction = async (id) => {
     try {
-      await axios.delete(`/api/expenses/${id}`);
+      await axios.delete(`${BASE_URL}/api/expenses/${id}`);
       setTransactions((prev) => prev.filter((t) => t.id !== id));
       setSelectedTransaction(null);
     } catch (err) {
