@@ -7,7 +7,6 @@ import { TRANSLATIONS, LOCALE_MAP } from "../constants/translations.jsx";
 export default function TransactionItem({ t, onClick, viewMode, lang = "en" }) {
   const tLabel = TRANSLATIONS[lang];
   const categoryLabel = tLabel.categories[t.category] || t.category;
-  console.log({ categoryLabel, t });
 
   return (
     <div
